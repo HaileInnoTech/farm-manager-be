@@ -10,7 +10,7 @@ router.get("/oauth2/google/fail", (req, res) => {
 });
 router.get("/oauth2/google/success", (req, res) => {
   if (req.user) {
-    console.log("User is authenticated: ", req.user.id);
+    console.log("User is authenticated: ", req.user);
     res.json({
       success: true,
       message: "user has successfully authenticated",

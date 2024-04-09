@@ -40,12 +40,26 @@ app.use(passport.session());
 
 app.use("/login", googleRoute);
 
+app.get("/logoutTest", (req, res) => {
+  if (req.user) {
+    console.log("User is authenticated: ", req.user.id);
+    res.json({
+      success: true,
+      message: "user has successfully authenticated",
+      user: req.user,
+      cookies: req.cookies,
+    });
+  }
+
+  res.status(401).json({
+    success: false,
+    message: "user failed to authenticate.",
+  });
+});
+
 // Connect to MongoDB
 mongoose
-  .connect(key.mongoose_uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(key.mongoose_uri, {})
   .then(() => {
     console.log("Connected to MongoDB");
   })
